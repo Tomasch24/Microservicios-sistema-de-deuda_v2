@@ -5,12 +5,12 @@ import com.example.airiskservice.dto.response.PaymentHistoryDTO;
 import java.util.List;
 
 /**
- * Abstracción del analizador de IA.
+ * Abstracción del analizador de AI.
  *
  * Principio DIP: RiskServiceImpl depende de esta interfaz,
- *               no de GroqClient directamente.
+ * no de GroqClient directamente.
  * Principio OCP: en el futuro se puede cambiar de Groq a otro
- *               proveedor sin modificar el servicio.
+ * proveedor sin modificar el servicio.
  */
 public interface GroqAiAnalyzer {
 
@@ -21,8 +21,8 @@ public interface GroqAiAnalyzer {
      * @return GroqRiskResponse o null si el servicio no está disponible.
      */
     GroqRiskResponse analyze(Long clientId,
-                              int totalDaysLate,
-                              int latePaymentCount,
-                              int paymentCount,
-                              List<PaymentHistoryDTO> payments);
+            int totalDaysLate,
+            int latePaymentCount,
+            int paymentCount,
+            List<PaymentHistoryDTO> payments);
 }
