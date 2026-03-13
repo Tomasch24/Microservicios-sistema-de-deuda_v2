@@ -1,0 +1,76 @@
+# ================================
+# JAVA / MAVEN
+# ================================
+target/
+**/target/
+*.class
+*.log
+*.jar
+*.war
+*.ear
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+
+# Maven test reports
+surefire-reports/
+failsafe-reports/
+
+# ================================
+# SPRING BOOT / RUNTIME
+# ================================
+logs/
+**/logs/
+out/
+**/out/
+tmp/
+temp/
+
+# ================================
+# CONFIG / SECRETS
+# ================================
+.env
+*.env
+**/*.env
+
+application-local.yml
+application-local.yaml
+application-dev.yml
+application-dev.yaml
+
+# ================================
+# IDE
+# ================================
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# ================================
+# OS FILES
+# ================================
+.DS_Store
+Thumbs.db
+
+# ================================
+# NODE (si agregan frontend luego)
+# ================================
+node_modules/
+dist/
+build/
+
+# ================================
+# DOCKER (si luego agregan)
+# ================================
+docker-compose.override.yml
