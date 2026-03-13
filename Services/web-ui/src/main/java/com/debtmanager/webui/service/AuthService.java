@@ -12,11 +12,13 @@ public class AuthService {
         this.authClient = authClient;
     }
 
-    public String login(String email, String password) {
+    public String login(String email, String password) { // sin cambios
         return authClient.login(email, password);
     }
 
     public void register(String fullName, String username, String email, String password) {
-        authClient.register(fullName, username, email, password);
+        // fullName y username ya no se usan — auth-service solo necesita email y
+        // password
+        authClient.register(email, password); // CAMBIO — antes llamaba a user-service con 4 parámetros
     }
 }

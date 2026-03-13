@@ -1,11 +1,11 @@
-
-package com.example.debtservice.security;
+package com.debtmanager.debtorservice.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// NUEVO — registra el JwtFilter para proteger todos los endpoints del debtor-service
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -14,14 +14,9 @@ public class SecurityConfig {
 
     @Bean
     public FilterRegistrationBean<JwtFilter> jwtFilterRegistration() {
-
         FilterRegistrationBean<JwtFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(jwtFilter);
-
-        // CORRECCIÓN — antes era "/debts/*", "/debts" y nunca interceptaba nada
-        // porque el controller responde en /api/v1/debts/**
-        registration.addUrlPatterns("/api/v1/debts", "/api/v1/debts/*");
-
+        registration.addUrlPatterns("/api/v1/debtors", "/api/v1/debtors/*");
         registration.setOrder(1);
         return registration;
     }

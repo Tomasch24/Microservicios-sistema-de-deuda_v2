@@ -19,8 +19,7 @@ public class AuthClient {
         this.gatewayUrl = gatewayUrl;
     }
 
-    // ── Login ──────────────────────────────────────────────────────────────────
-    public String login(String email, String password) {
+    public String login(String email, String password) { // sin cambios
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -52,24 +51,19 @@ public class AuthClient {
         throw new IllegalStateException("No se recibió token de autenticación");
     }
 
-    // ── Registro ───────────────────────────────────────────────────────────────
-    // Endpoint: POST /api/v1/users (user-service vía gateway)
-    // Body: { fullName, username, email, password, roleIds }
-    public void register(String fullName, String username, String email, String password) {
+    public void register(String email, String password) { // NUEVO — apunta a auth-service, ya no a user-service
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Map<String, Object> body = Map.of(
-                "fullName", fullName,
-                "username", username,
+        Map<String, String> body = Map.of(
                 "email", email,
                 "password", password,
-                "roleIds", java.util.List.of("2"));
+                "role", "USER");
 
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+        HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
 
         restTemplate.postForEntity(
-                gatewayUrl + "/api/v1/users",
+                gatewayUrl + "/api/v1/auth/register", // CAMBIO — antes era /api/v1/users
                 request,
                 Map.class);
     }
