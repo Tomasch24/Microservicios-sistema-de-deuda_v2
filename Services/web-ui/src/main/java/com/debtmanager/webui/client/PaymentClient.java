@@ -113,13 +113,20 @@ public class PaymentClient {
 
     // ── Helper ────────────────────────────────────────────────────────────────
     private PaymentResponse mapToPaymentResponse(Map<String, Object> m) {
+        // payment-service devuelve: id (Long), debtId, amount, paymentDate, note,
+        // createdAt
+        // web-ui PaymentResponse espera: id (String), debtId, amount, reference, notes,
+        // status, paidAt
+        String note = m.get("note") != null ? m.get("note").toString() : null;
+        String paidAt = m.get("paymentDate") != null ? m.get("paymentDate").toString()
+                : m.get("createdAt") != null ? m.get("createdAt").toString() : null;
         return new PaymentResponse(
                 m.get("id") != null ? m.get("id").toString() : null,
                 m.get("debtId") != null ? m.get("debtId").toString() : null,
                 m.get("amount") != null ? new BigDecimal(m.get("amount").toString()) : BigDecimal.ZERO,
-                m.get("reference") != null ? m.get("reference").toString() : null,
-                m.get("note") != null ? m.get("note").toString() : null,
+                note, // reference → usamos note como referencia visible
+                note, // notes
                 "APPLIED",
-                m.get("paymentDate") != null ? m.get("paymentDate").toString() : null);
+                paidAt);
     }
 }
