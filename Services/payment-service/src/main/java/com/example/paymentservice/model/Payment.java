@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Entidad JPA que representa un pago registrado en el sistema.
@@ -37,14 +39,18 @@ public class Payment {
     @Column
     private String note;
 
-    /** Timestamp de auditoría: cuándo se registró en el sistema. */
+    /**
+     * Timestamp de auditoría: cuándo se registró en el sistema (ISO-8601 UTC como
+     * TEXT).
+     */
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt;
+    private String createdAt;
 
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {
-            createdAt = Instant.now();
+            createdAt = DateTimeFormatter.ISO_INSTANT
+                    .format(Instant.now().atOffset(ZoneOffset.UTC));
         }
     }
 
@@ -83,7 +89,7 @@ public class Payment {
         return note;
     }
 
-    public Instant getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 }

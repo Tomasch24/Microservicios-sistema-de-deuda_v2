@@ -59,7 +59,7 @@ public class PaymentController {
                         return 1;
                     if (b.createdAt() == null)
                         return -1;
-                    return b.createdAt().compareTo(a.createdAt());
+                    return b.createdAt().compareTo(a.createdAt()); // String ISO-8601 sorts correctly
                 })
                 .limit(limit)
                 .toList();
